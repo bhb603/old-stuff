@@ -1,0 +1,94 @@
+/* reset */
+
+html, body, form, h1, h2, h3, div, p, label, ul, header, footer,
+table, thead, tbody, th, tr, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  background: transparent;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+input[type="text"],
+textarea {
+  display: inline-block;
+  font: inherit;
+  vertical-align: baseline;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+input[type="submit"] {
+  border: 0;
+  font: inherit;
+  background: transparent;
+}
+
+/* global stuff */
+
+html {
+  background: #fff;
+}
+
+body {
+  font-family: arial, sans-serif;
+  color: #555;
+}
+
+.hidden {
+  display: none;
+}
+
+a {
+  color: #3BA3D0;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+h1, h2, h3 {
+  color: #555;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 1.5em;
+  margin: 15px 0 10px 0;
+}
+
+span.grey {
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+/* Notices and errors */
+
+.notice, .error {
+  width: 500px;
+  margin: 5px auto;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.1em;
+  border-radius: 5px;
+}
+
+.notice {
+  color: #0772A1;
+}
+
+.error {
+  color: #FF3100;
+}

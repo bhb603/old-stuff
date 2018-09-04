@@ -1,0 +1,28 @@
+<!-- My Bids-->
+<div class="bids">
+	<h1>Bids</h1>
+	
+	<table>
+		<tr>
+			<th>Job Title</th>
+			<th>Job Status</th>
+			<th>Actions</th>
+		</tr>
+		
+	<% @bids.each do |bid| %>
+		<tr class="bid">
+			<td><%= link_to bid.job.title.capitalize, job_url(bid.job.id) %></td>
+			<td><%= bid.job.status %></td>
+			<td>
+				<% if bid.job.status == "open" %>
+					<%= button_to "Revoke bid", job_bid_url(bid.job_id, bid.id), method: :delete %>
+				<% else %>
+					No actions
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+	
+	</table>
+	
+</div>

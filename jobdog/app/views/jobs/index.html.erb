@@ -1,0 +1,148 @@
+<!-- Job Index -->
+
+<script>
+
+this.JobDog = this.JobDog || {};
+
+JobDog.buildGeojson = function(obj) {
+  return {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [obj.longitude, obj.latitude]
+      },
+      "properties": {
+        "title": obj.location,
+        "description": obj.title,
+        "marker-color": "#3BA3D0",
+        "marker-size": "large",
+				"marker-id": obj.id
+      }
+    };
+};
+
+JobDog.populateMap = function(jobs) {
+	JobDog.geojsonJobs = [];
+	_.each(jobs, function(job) {			
+		JobDog.geojsonJobs.push(JobDog.buildGeojson(job));
+	});
+	
+	JobDog.map = L.mapbox.map('map', 'bhb603.hcaf0l74', {zoomControl: true}).setView(JobDog.geojsonJobs[0].geometry.coordinates, 3);
+	JobDog.map.scrollWheelZoom.disable();
+	JobDog.map.featureLayer.setGeoJSON(JobDog.geojsonJobs);
+	JobDog.map.on('ready', function() {
+		var fl = L.mapbox.featureLayer(JobDog.geojsonJobs);
+		JobDog.map.fitBounds(fl.getBounds());
+	});
+	
+	JobDog.map.featureLayer.eachLayer( function(marker) {		
+		var jobId = marker.feature.properties["marker-id"];
+		$("div[data-id=" + jobId +"]").on('click', function() {
+			JobDog.map.panTo(marker.getLatLng());
+			marker.openPopup();
+		});	
+	});
+};
+
+JobDog.window = this;
+$(document).ready( function() {
+	$.ajax(JobDog.window.location.search, { cache: false, success: JobDog.populateMap });
+	$('.search-button > a').on('click', function(event) {
+		event.preventDefault();
+		$('.jobs-index > .search').toggleClass('hidden');
+	});
+	
+	$('.cancel > a').on('click', function(event) {
+		event.preventDefault();
+		$('.jobs-index > .search').toggleClass('hidden');
+	});
+	
+});
+
+</script>
+
+<div class="jobs-index clearfix">
+	
+	<h1>Jobs</h1>
+	
+	<div class="search-button">
+		<a href="#" class="button">Search</a>
+	</div>
+	<div class='search form hidden'>
+		<form action="<%= jobs_url %>" method="get" class="clearfix">
+			
+			<div class="input">
+				<label for"owner">Jobs</label>
+				<input type="radio" name="search[user]" value="me">My Jobs
+				<input type="radio" name="search[user]" value="notme" checked>Other Jobs	
+			</div>
+						
+			<div class="input">
+				<label for="status">Status</label>
+				<input type="checkbox" name="search[status][]" value="open" checked>Open
+				<input type="checkbox" name="search[status][]" value="awarded">Awarded
+				<input type="checkbox" name="search[status][]" value="completed">Completed
+			</div>
+			
+			<div class="input">
+				<label for="category">Category</label>
+				<% ["delivery", "handyman", "cooking", "creative", "tech", "other"].each do |category| %>
+				<input type="checkbox" name="search[category][]" value="<%= category %>"><%= category.capitalize %>
+				<% end %>
+			</div>
+			
+			<div class="input">
+				<label for="distance">Distance</label>
+				<input type="radio" name="search[distance]" value="10">10 miles
+				<input type="radio" name="search[distance]" value="20" checked>20 miles
+				<input type="radio" name="search[distance]" value="50">50 miles
+				<input type="radio" name="search[distance]" value="50">100 miles
+				<input type="radio" name="search[distance]" value="all">All
+			</div>
+			
+			<!-- <div class="input">
+				<label>Order by</label>
+				<input type="radio" name="search[order]" value="created_at">New
+				<input type="radio" name="search[order]" value="distance">Distance
+			</div> -->
+			
+			<div class="input submit">
+				<input type="submit" value="Go">
+			</div>
+			
+			<div class="input cancel">
+				<a href="#">Cancel</a>
+			</div>
+			
+		</form>
+	</div>
+	
+	<%= paginate @jobs %>
+	
+	<div id="map">
+	</div>
+	
+	<% @jobs.each do |job| %>
+		<div class="job clearfix" data-id="<%= job.id %>">
+			<div class="profile-photo">
+				<img src="<%= job.user_profile.photo_url(:thumb) %>">
+			</div>
+			
+			<div class="info clearfix">
+				<h3><a href="<%= job_url(job) %>" ><%= job.title.capitalize %></a></h3>
+				<div class="category"><%= job.category %></div>
+				<div class="complete-by-date">
+					<%= job.formatted_date %>
+				</div>
+				<div class="address">
+					<%= job.location %><br>
+				</div>			
+			</div>
+		</div>
+	<% end %>
+	
+	<%= paginate @jobs %>
+</div>
+
+
+

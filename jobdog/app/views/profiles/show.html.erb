@@ -1,0 +1,35 @@
+<!-- Public Profile -->
+<div class="profile">
+	
+	<h1><%= @user.alias %></h1>
+	<img src="<%= @user.profile.photo_url(:thumb) %>" width="100", height="100">
+	<ul>
+		<li><%= @user.email %></li>
+		<li><%= @user.profile.location %></li>
+		<li><%= link_to "Jobs", jobs_url(search: { user_id: @user.id }) %></li>
+		<% if @user.id == @current_user.id %>
+		<li><a href="<%= edit_user_url(@user) %> ">Edit Profile</a></li>
+		<% end %>
+	</ul>
+
+	<hr>
+
+	<div class="ratings">
+		<h2>Ratings</h2>
+		<%= "User has no ratings yet!" if @user.ratings.count == 0 %>
+		
+		<% @user.ratings.each do |rating| %>
+		<div>
+			<% if rating.completed %>
+				<%= rating.score %>
+			<% else %>
+				Pending
+			<% end %>
+	
+			<%= link_to rating.rater.alias, user_profile_url(rating.rater) %>
+			<%= rating.comments %>
+		</div>
+		<% end %>
+	</div>
+	
+</div>

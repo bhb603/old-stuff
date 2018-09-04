@@ -1,0 +1,30 @@
+<!-- job form partial -->
+<div class="input">
+	<label for="title">Title</label>
+	<input type="text" name="job[title]" value="<%= job.title %>" id="title">
+</div>
+
+<div class="input">
+	<label for="location">Location</label>
+	<input type="text" name="job[input_location]" value="<%= job.location %>" id="location">
+</div>
+
+<div class="input">
+	<label for="complete-by">Complete By</label>
+	<input type="date" name="job[complete_by]" value="<%= job.complete_by.strftime("%Y-%m-%d") if job.complete_by %>" id="complete-by">
+</div>	
+
+<div class="input">
+	<label for="category">Category</label>
+	<select name="job[category]" id="category">
+		<option value=""></option>
+		<% ["delivery", "handyman", "cooking", "creative", "tech", "other"].each do |cat| %>
+		<option value="<%= cat %>" <%= "selected" if job.category == cat %>><%= cat %></option>
+		<% end %>			
+	</select>
+</div>
+
+<div class="input">
+	<label for="description">Description</label>
+	<textarea name="job[description]" rows="4" cols="30" id="description"><%= job.description %></textarea>
+</div>

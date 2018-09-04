@@ -1,0 +1,86 @@
+<div class="about">
+	
+	<h1>About JobDog</h1>
+
+	<p>
+		JobDog is a web application designed to help people get their jobs done. There are two
+		ways to use the app...
+	</p>
+	<ol>
+		<li>
+			If you need help with a job:
+			<ol>
+				<li>Post the job and wait for other users to bid on it</li>
+				<li>Award the job to the user you deem fit</li>
+				<li>After the awarded user performs the job, rate the user and the job will be closed</li>
+				<li>Celebrate as your to-do list dwindles!</li>
+			</ol>
+		</li>
+	
+		<li>
+			If you want to help others with their jobs:
+			<ol>
+				<li>Search for nearby jobs; bid on those which match your skills</li>
+				<li>If awarded a job, complete it by the required date</li>
+				<li>Get rated and repeat!</li>
+			</ol>
+		</li>
+	</ol>
+	
+	<h3 id="guest">
+		Get started by <%= link_to "signing up", new_user_url %> or <%= link_to "logging in", new_session_url %>.<br><br>
+		Want to demo JobDog without joining? Log in as a <%= button_to "guest user", users_url({guest: true}) %>. 
+		You will have full access to the site so feel free to explore!
+	</h3>
+	
+	<h1>Development</h1>
+	
+	<p>
+		JobDog is still under development with many features yet to come!
+		The project is also open source; you can check it out on GitHub for more info:
+	</p>
+	<p><a href="http://github.com/bhb603/jobdog">github.com/bhb603/jobdog</a></p>
+	
+	<h1>Contact</h1>
+	<p>Have any feedback or questions? Please use the form below to contact me.</p>
+	
+	<div class="notices">
+		<% flash[:notices] && flash[:notices].each do |notice| %>
+			<div class="notice">
+				<%= notice %>
+			</div>
+		<% end %>
+
+		<% flash[:errors] && flash[:errors].each do |error| %>
+			<div class="error">
+				<%= error %>
+			</div>
+		<% end %>
+	</div>
+	
+	<div class="form clearfix">
+		<form action="<%= messages_url %>" method="post">
+			
+			<div class="input">
+				<label for="name">Name</label>
+				<input type="text" name="message[name]" value="<%= @message.name %>" id="name">
+			</div>
+			
+			<div class="input">
+				<label for="email">Email</label>
+				<input type="text" name="message[email]" value="<%= @message.email %>" id="email">
+			</div>
+			
+			<div class="input">
+				<label for="message">Message</label>
+				<textarea name="message[content]" id="message"><%= @message.content %></textarea>
+			</div>
+			
+			<div class="submit">
+				<input type="submit" name="" value="Submit" id="">
+			</div>
+		
+		</form>
+	</div>
+	
+</div>

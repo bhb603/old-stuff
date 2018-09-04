@@ -1,0 +1,26 @@
+
+.awards table,
+.bids table {
+  width: 100%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.awards th,
+.bids th {
+  font-weight: bold;
+}
+
+.awards th,
+.awards td,
+.bids th,
+.bids td {
+  text-align: left;
+  padding: 5px;
+}
+
+.awards td,
+.bids td {
+  border: 1px solid #ccc;
+  border-width: 1px 0;
+}

@@ -1,0 +1,22 @@
+<!-- Profile form partial -->
+
+<div class="input">
+	<label for="first_name">First Name</label>
+	<input type="text" name="profile[first_name]" value="<%= profile.first_name %>" id="first_name">
+</div>
+
+<div class="input">
+	<label for="last_name">Last Name</label>
+	<input type="text" name="profile[last_name]" value="<%= profile.last_name %>" id="last_name">
+</div>
+
+<div class="input">
+	<label for="location">Location</label>
+	<span class="grey">City, State OR Zip</span>
+	<input type="text" name="profile[input_location]" value="<%= profile.location %>" id="location">
+</div>
+
+<div class="input">
+	<label for"photo">Photo</label>
+	<input type="file" name="profile[photo]" value="" id="photo" accept="image/*">
+</div>

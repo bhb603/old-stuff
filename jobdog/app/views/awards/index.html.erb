@@ -1,0 +1,29 @@
+<!-- My Awards-->
+
+<div class="awards">
+	<h1>Awards</h1>
+	
+	<table>
+		<tr>
+			<th>Job Title</th>
+			<th>Job Status</th>
+			<th>Actions</th>
+		</tr>
+		
+	<% @awards.each do |award| %>
+		<tr class="award">
+			<td><%= link_to award.job.title.capitalize, job_url(award.job.id) %></td>
+			<td><%= award.job.status %></td>
+			<td>
+				<% if award.job.status == "awarded" %>
+					<%= button_to "Complete Job", complete_job_url(award.job_id), method: :put %>
+				<% else %>
+					No actions
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+	
+	</table>
+	
+</div>

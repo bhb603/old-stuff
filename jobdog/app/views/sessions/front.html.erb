@@ -1,0 +1,53 @@
+<script>
+$(document).ready(function() {
+	$('#hero-slider').heroSlider();
+});
+</script>
+	
+<header class="clearfix">
+	
+	<h1>JobDog</h1>
+	
+	<ul class="clearfix">
+		<li><a href="#guest" class="demo">Demo</a></li>
+		<li><%= link_to "About", about_url %></li>
+		<li><%= link_to "Log in", new_session_url %></li>
+	</ul>
+</header>
+
+<div class="content">
+	
+	<div class="hero-text">
+		<h1>Get your jobs done.</h1>
+		<h2>Find safe, reliable help in your neighborhood.</h2>
+		<%= link_to "Join for free", new_user_url, class: "join-button" %>
+	</div>
+	
+	<div id="hero-slider">
+		<div class="hero-slide">
+			<img src="/assets/dog1.jpg">
+		</div>
+	
+	</div>
+
+	<div class="clearfix info">	
+		<div class="left">
+			Outsource household errands and skilled jobs; rejoice as your to-do list dwindles.
+		</div>
+		<div class="right">
+			Discover opportunities to help out your neighbors.
+		</div>
+	</div>
+
+</div>
+
+<div class="guest" id="guest">
+	Want to demo JobDog without joining? Log in as a <%= button_to "guest user", users_url({guest: true}) %>. 
+	You will have full access to the site so feel free to explore!
+</div>
+
+<footer>
+	<div class="attribution">
+		Photo from <a href="http://www.dealwagger.com/blog/tag/eyewitness-news-bakersfield-now/">Dealwagger</a>
+	</div>
+</footer>

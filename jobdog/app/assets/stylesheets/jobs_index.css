@@ -1,0 +1,81 @@
+
+/* Jobs Index */
+
+.jobs-index {
+  position: relative;
+}
+
+.jobs-index > nav {
+  clear:both;
+}
+
+.jobs-index > .job {
+  width: 510px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px 0;
+  float: left;
+  box-shadow: 0 0 15px #ccc;
+}
+
+.jobs-index > .job:hover {
+  border-color: #0772A1;
+}
+
+.jobs-index > .job > .profile-photo {
+  float: left;
+  padding: 10px;
+}
+
+.jobs-index > .job > .profile-photo > img {
+  float: left;
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+
+.jobs-index > .job > .info {
+  padding: 10px; 
+  width: 370px;
+  float: right;
+}
+
+.jobs-index > .job > .info > h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.job > .info > .category {
+  margin: 10px 0;
+}
+
+.job > .info > .address {
+  float: left;
+  width: 240px;
+}
+
+.job > .info > .complete-by-date {
+  float: right;
+}
+
+.search-button {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+
+#map {
+  float: right  ;
+  height: 330px;
+  width: 330px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.jobs-index > .search {
+  z-index: 1100;
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 0 15px #ccc;
+  left: 200px;
+}

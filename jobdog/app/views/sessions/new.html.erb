@@ -1,0 +1,45 @@
+<!-- new session -->
+
+<div class="notices">
+	<% flash[:notices] && flash[:notices].each do |notice| %>
+		<div class="notice">
+			<%= notice %>
+		</div>
+	<% end %>
+
+	<% flash[:errors] && flash[:errors].each do |error| %>
+		<div class="error">
+			<%= error %>
+		</div>
+	<% end %>
+</div>
+
+<div class="user form">
+	
+	<h1>Log In</h1>
+
+	<form class="clearfix" action="<%= session_url %>" method="post">
+		<div class="input">
+			<label for="useremail">Email:</label>
+			<input type="text" name="user[email]" value="" id="useremail">
+		</div>
+	
+		<div class="input">
+			<label for="password">Password:</label>
+			<input type="password" name="user[password]" value="" id="password">
+		</div>
+	
+		<div class="input submit">
+			<input type="submit" name="" value="Log In" class="button">
+		</div>
+		
+		<div class="input cancel">
+			<%= link_to 'Cancel', :back %>
+		</div>
+		
+	</form>
+	
+	<div class="google-signin">
+		<a href="/auth/google_oauth2"><img src="/assets/google-signin.png"></a>
+	</div>
+</div>

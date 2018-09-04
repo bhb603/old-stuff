@@ -1,0 +1,21 @@
+<!-- new job -->
+
+<div class="job form">
+	<h1>New Job</h1>
+	
+	<form class="clearfix" action="<%= jobs_url %>" method="post">	
+		<%= form_auth %>
+	
+		<%= render partial: "form", locals: { job: @job } %>
+	
+		<div class="input submit">
+			<input type="submit" name="" value="Submit" class="button">
+		</div>
+		
+		<div class="input cancel">
+			<%= link_to 'Cancel', :back %>
+		</div>
+		
+	</form>
+
+</div>

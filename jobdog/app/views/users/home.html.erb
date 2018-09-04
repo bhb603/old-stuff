@@ -1,0 +1,38 @@
+<!-- user home page -->
+
+<div class="notifications">
+	<h1>Notifications</h1>
+	
+	<% if @notifications.empty? %>
+		<div class="no-notifications">No notifications!</div>
+	<% else %>
+		<% @notifications.each do |notification| %>
+		<div class="notification">
+			<%= button_to "X", read_notification_url(notification.id), method: "put", class: "remove-note" %>
+			<%= notification.content.html_safe %>
+		</div>
+		<% end %>
+	<% end %>
+</div>
+
+<div class="dashboard">
+	
+	<div class="category">
+		<h1>Get Work Done</h1> 
+		<ul>
+			<li><%= link_to "My Jobs", jobs_url(search: { user: "me" }) %></li>
+			<li><%= link_to "Post a Job", new_job_url %></li>
+		</ul>
+	</div>
+
+	<div class="category">
+		<h1>Do Work</h1>
+		<ul>
+			<li><%= link_to "Browse Open Jobs", jobs_url(search: { status: "open" }) %></li>
+			<li><%= link_to "My Bids", user_bids_url(@current_user) %></li>
+			<li><%= link_to "My Awards", user_awards_url(@current_user) %></li>
+		</ul>
+	</div>
+
+</div>
+

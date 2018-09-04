@@ -1,0 +1,31 @@
+<!-- Edit rating form -->
+
+<div class="rating form">
+	<h1><%= @job.title %></h1>
+
+	Job completed by: <%= link_to @job.awardee.alias, user_profile_url(@job.awardee.id) %>
+
+	<form action="<%= rating_url %>" method="post">
+		<input type="hidden" name="_method" value="put">
+		<%= form_auth %>
+	
+		<div class="input">
+			<label for="score">Score:</label>
+			<select name="rating[score]" id="score" multiple onchange="" size="1">
+				<option value=1>1 - bad</option>
+				<option value="2">2 - meh</option>
+				<option value="3">3 - average</option>
+				<option value="4">4 - good</option>
+				<option value="5">5 - excelsior!</option>
+			</select>
+		</div>
+	
+		<div class="input">
+			<label for="Comments">Comments</label>
+			<textarea name="rating[comments]" rows="5" cols="30"></textarea>
+		</div>	
+		
+		<input type="submit" name="" value="Submit" class="button">
+	</form>
+	
+</div>

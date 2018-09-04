@@ -1,0 +1,96 @@
+<!-- job show page -->
+
+<div class="job-show clearfix">
+	<div class="main">
+		
+		<div class="info clearfix ">
+			<div class="profile-pic">
+				<a href="<%= user_profile_url(@job.user) %>"><img src="<%= @job.user_profile.photo_url(:thumb) %>" width=100px></a>
+			</div>
+		
+			<h1><%= @job.title.capitalize %></h1>
+			<div class="date">
+				<%= @job.complete_by.strftime("%m/%d/%Y") %> for <%= link_to @job.user.alias, user_profile_url(@job.user) %><br>
+				Category: <%= @job.category %>
+			</div>
+		</div>
+		
+		<div class="details">
+			<h2>Details</h2>
+			<%= @job.description %>
+		</div>
+				
+	</div>
+	
+	<div class="sidebar">
+		<%= button_to "Place Bid", job_bids_url(@job), { method: "post", class: "action-button" } %>
+		<div class="state">
+			<h2>Job Status:</h2>
+			<% ["open", "awarded", "completed", "closed"].each do |status| %>
+			<div class="status <%= "current" if @job.status == status %>">
+				<%= status.capitalize %>
+			</div>
+			<% end %>
+		</div>
+		
+	</div>
+	
+</div>
+
+<% if @job.user.id == @current_user.id %>
+	<div class="job-dashboard">
+		
+		<h2>Job Dashboard</h2>
+		<table>
+			<tr><td>Created:</td> <td><%= @job.created_at.strftime("%m/%d/%Y") %></td></tr>
+			<tr><td>Updated:</td> <td><%= @job.updated_at.strftime("%m/%d/%Y") %></td></tr>
+			<tr><td>Status:</td> <td><%= @job.status.capitalize %></td></tr>
+			<tr><td>No. bids:</td><td> <%= @job.bids.count %></td></tr>
+		</table>
+		
+		<h3>Available Actions</h3>
+		
+		<% if @job.status == "open" %>
+			<%= button_to "Edit", edit_job_url(@job), { method: 'get', class: "button"} %>
+			<%= button_to "Delete", job_url, { method: 'delete', class: "delete-button" } %>
+		<% elsif @job.status == "completed" %>	
+			<%= link_to "Rate User & Close Job", edit_rating_url(@job.id), { class: "button" } %>
+		<% else %>
+		Job is closed...no available actions!
+		<% end %>
+				
+		<div class="award">
+			<% if @job.award %>
+				<h3>Award</h3>
+				
+				<div class="award">
+					<% award = @job.award %>
+					<%= link_to award.recipient.alias, user_profile_url(award.recipient_id) %> received award on <%= award.created_at.strftime("%D") %>
+					<% if @job.status == "awarded" %>
+						<%= button_to "Revoke Award", job_award_url(@job.id, award.id), method: "delete" %>
+					<% end %>
+				</div>
+						
+			<% end %>
+		</div>
+		
+		<div class="bids">
+			<% if @job.bids.empty? %>
+				No bids on this job yet!
+			<% else %>
+				<h3>Bids</h3>
+				<% @job.bids.order("created_at DESC").each do |bid| %>
+					
+				<div class="bid">
+					<%= link_to bid.bidder.alias, user_profile_url(bid.bidder_id) %> placed bid on <%= bid.created_at.strftime("%D") %>
+					<%= button_to "Award Bidder", job_awards_url(@job.id, bidder_id: bid.bidder_id) if @job.status == "open" %>
+				</div>
+					
+				<% end %>
+			<% end %>
+		</div>
+	
+	</div>
+<% end %>
+
+

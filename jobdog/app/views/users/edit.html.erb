@@ -1,0 +1,22 @@
+<!-- edit user -->
+
+<div class="form">
+	<h1>Edit Profile</h1>
+
+	<form class="clearfix" action="<%= user_url(@user.id) %>" method="post" enctype="multipart/form-data">
+		<%= form_auth %>
+		<input type="hidden" name="_method" value="put">
+
+			<%= render partial: "profiles/form", locals: { profile: @user.profile } %>
+
+		<div class="input cancel">
+			<a href="<%= user_profile_url(@user.id) %>">Cancel</a>
+		</div>
+
+		<div class="input submit">
+			<input type="submit" name="" value="Update Profile">
+		</div>
+
+	</form>
+	
+</div>

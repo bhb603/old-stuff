@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JobDog</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+	
+	<link href='//api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet' />
+	<script src='//api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>
+	
+	<script>
+	function toggleDropdown() {
+		$('.dropdown').toggleClass('invisible');
+	}
+	
+	$(document).ready(function(){
+		$('.user-menu').hover(toggleDropdown);
+		Mousetrap.bind('j f f', Jobdog.jobFormFiller);
+	});
+	
+	
+	</script>
+</head>
+<body>
+
+
+<div class="nav-container clearfix">	
+	<nav class="clearfix">
+		<a href="<%= home_url %>">JobDog</a>
+		<ul>
+			<li><%= link_to "Home", home_url %></li>
+			<li><%= link_to "Post a Job", new_job_url %></li>
+			<li><%= link_to "Browse Open Jobs", jobs_url(search: { status: "open", distance: 20 }) %></li>
+			<li class="user-menu">
+				<%= link_to "#{@current_user.alias}", "#" %>
+				<ul class="dropdown invisible">
+					<li><%= link_to "My Profile", user_profile_url(@current_user.id) %></li>
+					<li><%= link_to "My Jobs", jobs_url(search: { user: "me" }) %></li>
+					<li><%= link_to "My Bids", user_bids_url(@current_user) %></li>
+					<li><%= link_to "My Awards", user_awards_url(@current_user) %></li>
+					<li><%= button_to "Logout", session_url, method: :delete %></li>
+				</ul>
+			</li>
+		</ul>	
+	</nav>
+</div>
+
+<div class="notices">
+	<% flash[:notices] && flash[:notices].each do |notice| %>
+		<div class="notice">
+			<%= notice %>
+		</div>
+	<% end %>
+
+	<% flash[:errors] && flash[:errors].each do |error| %>
+		<div class="error">
+			<%= error %>
+		</div>
+	<% end %>
+</div>
+
+<div class="main-container clearfix">
+	<%= yield %>
+</div>
+
+<footer>
+	<div class="footer-container">
+	&copy; 2014 JobDog
+	</div>
+</footer>
+
+</body>
+</html>

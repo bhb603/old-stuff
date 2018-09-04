@@ -1,0 +1,49 @@
+<!-- new user -->
+
+<div class="notices">
+	<% flash[:notices] && flash[:notices].each do |notice| %>
+		<div class="notice">
+			<%= notice %>
+		</div>
+	<% end %>
+
+	<% flash[:errors] && flash[:errors].each do |error| %>
+		<div class="error">
+			<%= error %>
+		</div>
+	<% end %>
+</div>
+
+<div class="user form">
+	<h1>Sign Up</h1>
+
+	<form class="clearfix" action="<%= users_url %>" method="post" enctype="multipart/form-data">
+		<%= form_auth %>
+		<div class="input">
+			<label for="useremail">Email:</label>
+			<input type="text" name="user[email]" value="<%= @user.email %>" id="useremail">
+		</div>
+	
+		<div class="input">
+			<label for="password">Password:</label>
+			<span class="grey">Min 4 characters for max security</span>
+			<input type="password" name="user[password]" value="" id="password">
+		</div>
+	
+		<%= render partial: "profiles/form", locals: { profile: @profile } %>
+	
+		<div class="input submit">
+			<input type="submit" name="" value="Sign Up!" id="">
+		</div>
+		
+		<div class="input cancel">
+			<%= link_to 'Cancel', :back %>
+		</div>
+				
+	</form>
+	
+	<div class="google-signin">
+		<a href="/auth/google_oauth2"><img src="/assets/google-signin.png"></a>
+	</div>
+
+</div>
